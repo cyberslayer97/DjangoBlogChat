@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<h1>Single Room {{roomname}}</h1>
+
+
+<div style="height: 400px;" id='chatbox' class="container d-flex flex-column-reverse overflow-auto border border-4">
+    <div id="row" class="row mb-2">
+
+    {% for chat in chats %}
+      <div id="chat" class="my-1 justify-content-end d-flex align-items-center">
+        <span class='m-2 border border-2 rounded-2 p-2'>{{chat.content}}</span> 
+        <img style="height:40px; width:40px;" src='{{chat.sender.Profile_image.url}}' class='img-thumbnail border border-2 rounded-2'>
+      </div>
+
+      {% empty %}
+      <div id="chat" class="my-1 justify-content-end d-flex align-items-center">
+        <span></span> 
+        <img>
+      </div>
+    {% endfor %}
+   
+      
+    </div>
+
+    
+  
+  
+  </div>
+  <input placeholder="Type a message.." class="container form-control mt-3 rounded-2 border border-4"
+    id="message" rows="3"></textarea>
+  
+  
+  
+  <div style="height: 200px;"></div>
+
+  {{roomname|json_script:"room_name"}}
+
+{% endblock content %}
+
+{% block script %}
+
+<script>
+
+  var inputMessage = document.getElementById('message');
+  var roomname = JSON.parse(document.getElementById("room_name").textContent)
+
+  var ws = new WebSocket(
+    'ws://' 
+    + window.location.host 
+    + '/ws/aj/' 
+    + roomname 
+    + '/'
+    )
+  
+  ws.onopen = function() {
+    };
+
+  ws.onmessage = function(event){
+      data = JSON.parse(event['data'])
+      var rowContainer = document.getElementById('row');
+
+      var chatContainer = document.getElementById('chat').cloneNode(true);
+
+      chatContainer.children[0].textContent = data['message'];
+      chatContainer.children[0].classList = 'm-2 border border-2 rounded-2 p-2'
+      chatContainer.children[1].src = data['sender'];
+      chatContainer.children[1].classList = 'img-thumbnail border border-2 rounded-2'
+      chatContainer.children[1].style.height = '40px';
+      chatContainer.children[1].style.width = '40px';
+
+
+      rowContainer.appendChild(chatContainer);
+
+    }
+
+    
+inputMessage.addEventListener('keyup', function myFunction(event)  {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    ws.send(JSON.stringify(inputMessage.value))
+    inputMessage.value = '';
+
+  }
+});
+
+</script>
+
+{% endblock script %}

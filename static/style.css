@@ -1,0 +1,22 @@
+.nav-link {
+    color: white;
+    font-weight:700;
+    margin: 2px;
+}
+
+.carousel-item img {
+    height: 30rem;
+    width: 30rem;
+}
+
+.card-img-top {
+    height: 15rem;
+}
+
+.navimg {
+    cursor: pointer;
+}
+
+#chatbox::-webkit-scrollbar {
+    display: none;
+  }

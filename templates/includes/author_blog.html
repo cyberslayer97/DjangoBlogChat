@@ -1,0 +1,22 @@
+{% load static %}
+
+<div class="card my-3">
+    <img src="{{blog.image.url}}" class="card-img-top" alt="...">
+    <div class="card-body">
+        <a href="{% url 'single_blog' blog.slug %}" class="text-decoration-none">
+            <h5 class="card-title">{{blog.title}}</h5>
+        </a>
+        <p class="card-text">{{blog.content | truncatewords:25}}</p>
+        <p class="card-text">
+        {% for blog_tag in blog.tags.all %}
+            <a href="" class="text-decoration-none">
+                <span class="badge rounded-pill text-bg-{{badge_color | random}}">{{blog_tag}}</span>
+            </a>
+        {% endfor %}
+        </p>
+    </div>
+    <div class="card-footer d-flex justify-content-between">
+        <small class="text-muted">Created At :- {{blog.created}}</small>
+        <small class="text-muted">By:- {{blog.author.all | join:', ' | default:None }}</small>
+    </div>
+</div>

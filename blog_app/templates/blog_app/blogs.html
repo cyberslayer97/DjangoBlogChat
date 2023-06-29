@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+<!-- Blogs -->
+{% load static %}
+{% block content %}
+
+    <div class="container p-3">
+    {% for blog in blogs %}
+        <div class="blog_card mt-2 row border p-1 border-2 border-dark shadow rounded">
+            <img src="{{blog.image.url}}" class="blog_img col-md-4 g-0" alt="">
+            <div class="col-md-8 d-flex flex-column">
+
+                <div class="card-body ms-2 d-flex flex-column justify-content-between mt-4">
+                    <div class="blog_top">
+                        <h5 class="card-title mb-2">{{blog.title}}</h5>
+                        <p class="card-text">{{blog.content | truncatewords:25}}</p>
+                    </div>
+                    <p class="card-text my-3">
+                        <span class="text-muted">Tags:- </span>
+                        {% for tag in blog.tags.all %}
+                        <a href="" class="text-decoration-none">
+                        <span class="badge rounded-pill text-bg-{{badge_color | random}}">{{tag}}</span>
+                        </a>
+                        {% endfor %}
+                    </p>
+                    <form action="{% url 'read_later' %}" method="post" class="text-end my-2">
+                        {% csrf_token %}
+                        <input type='hidden' value="{{blog.id}}" name="read_later_blog" >
+                        <button type="submit" {% if blog.id in request.session.idsession %}disabled{% endif %}><i class="bi bi-bell-fill m-2"></i>Read Later</button>
+                    </form>
+
+                    <div class="d-flex justify-content-between">
+                        <p class="card-text"><small class="text-muted">By {{blog.author.all | join:', ' | default:None}}</small></p>
+                        <p class="card-text"><small class="text-muted">Date:- {{blog.created}}</small></p>
+                    </div>
+                </div>
+                <div class="mx-auto w-100">
+                    <a href="{% url 'single_blog' blog.slug %}" class="btn w-100 btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+    <!-- Blogs -->
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation example" class="mt-4">
+        <ul class="pagination justify-content-center">
+            <li class="page-item me-3">
+            {% if blogs.has_previous %}
+                <a class="page-link" href="?page={{ blogs.previous_page_number }}">Back</a>
+            {% endif %}
+            </li>
+
+            <li class="page-item ms-3">
+            {% if blogs.has_next %}
+                <a class="page-link" href="?page={{ blogs.next_page_number }}">Next</a>
+            {% endif %}
+            </li>
+        </ul>
+    </nav>
+    <!-- Pagination -->
+{% endblock content %}
+

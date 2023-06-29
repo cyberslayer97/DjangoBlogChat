@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h1>Profile Settings</h1>
+
+
+<form method="post" class="row g-3 container mx-auto m-5" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="col-12">
+        <img src="{{form.Profile_image.value.url}}" style="width: 5rem;" class="rounded border border-4 mx-auto d-block" alt="...">
+    </div>
+    <div class="col-12 mx-auto">
+        {{form.Profile_image}}
+    </div>
+    <div class="col-md-6">
+      <label for="inputEmail4" class="form-label">Name</label>
+      {{form.Authorname}}
+    </div>
+    <div class="col-md-6">
+      <label for="inputPassword4" class="form-label">Username</label>
+      {{form.username}}
+    </div>
+    <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">Youtube</label>
+        {{form.youtube}}
+    </div>
+    <div class="col-md-6">
+        <label for="inputPassword4" class="form-label">Instagram</label>
+        {{form.instagram}}
+    </div>
+    <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">LinkedIn</label>
+        {{form.linkedin}}
+    </div>
+    <div class="col-md-6">
+        <label for="inputPassword4" class="form-label">Twitter</label>
+        {{form.twitter}}
+    </div>
+    <div class="col-12">
+      <label for="inputAddress" class="form-label">Tags</label>
+      <input type="text" name="tags" value="{% for t in form.instance.tags.all %}{{t.tagname}} {% endfor %}" class="form-control form-control-sm" placeholder="#Tags">
+    </div>
+    <div class="col-12">
+      <label for="inputAddress2" class="form-label">Info</label>
+      {{form.info}}
+    </div>
+    
+    <div class="col-12">
+      <input type="submit" class="btn btn-primary" value="Update">
+    </div>
+  </form>
+
+
+
+{% endblock content %}

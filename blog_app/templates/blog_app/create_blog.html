@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+<!-- Blogs -->
+{% load static %}
+{% block content %}
+
+<div class="row w-100 p-3">
+    <div class="container-fluid col-12 col-md-8">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label fw-bold">Title</label>
+            {{bform.title}}
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label fw-bold">Image</label>
+            {{bform.image}}
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label fw-bold">Write an Content</label>
+            {{bform.content}}
+        </div>
+        <div class="d-flex justify-content-between">            
+                {{tform.tagname}} 
+        </div>
+
+        <div class="d-grid gap-2 mt-3 col-6 mx-auto">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </form>
+    </div>
+</div>
+
+
+{% endblock content %}
+

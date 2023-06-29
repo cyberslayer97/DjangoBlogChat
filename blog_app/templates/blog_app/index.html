@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% include '../includes/carousel.html' %}
+
+<h1 class="text-center m-5">Blogs</h1>
+<div class="row ps-4 w-100 row-cols-1 row-cols-lg-4 row-cols-sm-2 g-4">
+  {% for blogs in new_blogs %}
+  <div class="col">
+    <div class="card">
+      <img src="{{blogs.image.url}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{blogs.title}}</h5>
+        <p class="card-text">{{blogs.content | truncatewords:25}}</p>
+      </div>
+      <div class="card-footer d-flex justify-content-between">
+          <small class="text-muted">{{blogs.author.all | join:', '}}</small>
+          <small class="text-muted">{{blogs.created}}</small>
+      </div>
+      <div class="mx-auto w-100">
+        <a href="{% url 'single_blog' blogs.slug %}" class="btn w-100 btn-primary">Read More</a>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+</div>
+
+{% endblock content %}
+
+
+
