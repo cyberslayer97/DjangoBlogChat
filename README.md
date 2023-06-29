@@ -14,5 +14,10 @@ Python, Django, HTML, CSS, Basic of Javascript, Bootstrap
 - CRUD Operation (Create, Read, Update, Delete)
 - Live Chat
 - Django Session (like readlater blog section)
+- add tags to blog
+
+## Trailer of DjangoBlogChat
+
+https://github.com/cyberslayer97/DjangoBlogChat/assets/108922988/f5980bdd-0647-454b-870a-522cef706425
 
 
