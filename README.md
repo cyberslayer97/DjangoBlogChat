@@ -6,7 +6,7 @@ DjangoBlogChat is a project that provides a feature-rich blogging platform with 
 
 
 ## 🛠 Skills
-Python, Django, HTML, CSS, Basics of Javascript, Bootstrap, caching with redis, 
+Python, Django, HTML, CSS, Basics of Javascript, Bootstrap, caching with redis.
 
 
 ## Features of DjangoBlogChat
